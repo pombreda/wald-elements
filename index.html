@@ -3,40 +3,54 @@
   <head>
     <title>wald-elements</title>
     <meta charset="utf-8" />
-    <meta http-equiv="refresh" content="100" />
+    <meta http-equiv="refresh" content="6000" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" />
     <script src="bower/platform/platform.js"></script>
-    <script src="bower/closest/closest.js"></script>
 
+    <link rel="import" href="bower/font-roboto/roboto.html">
     <link rel="import" href="bower/core-elements/core-elements.html" />
     <link rel="import" href="bower/paper-elements/paper-elements.html" />
+    <link rel="import" href="wald-elements/wald-elements.html" />
+
+    <style>
+     html,body {
+         font-family: 'RobotoDraft', sans-serif;
+         background-color: #fff;
+     }
+
+     core-header-panel[main] core-toolbar {
+         background: #03a9f4;
+         color: white;
+     }
+
+    </style>
+
 
     <polymer-element name="local-menu">
         <template>
             <style>
-             core-header-panel[navigation] {
-                 background: #fff;
-             }
+             core-drawer-panel .material-content-padding { padding: 16px; }
+             core-drawer-panel[narrow] .material-content-padding { padding: 8px; }
 
-             #drawerPanel:not([narrow]) #menuButton {
-                 display: none;
-             }
+             core-header-panel[drawer] { background: #eee; }
+             #drawerPanel:not([narrow]) #menuButton { display: none; }
+             h1 { font-size: inherit; font-weight: inherit; }
             </style>
-            <core-drawer-panel id="drawerPanel" narrow="{{narrow}}"
-                               responsiveWidth="800px" drawerWidth="400px">
-                <core-header-panel drawer navigation flex mode="seamed">
+            <!-- drawerWidth="320px" responsiveWidth="800px" -->
+            <core-drawer-panel id="drawerPanel" narrow="{{narrow}}">
+                <core-header-panel drawer flex mode="seamed">
                     <core-toolbar>
-                        <span>Menu</span>
+                        <h1 flex>Menu</h1>
                     </core-toolbar>
-
                     <content select="[sidebar]"></content>
                 </core-header-panel>
 
-                <core-header-panel main flex mode="seamed">
+                <core-header-panel main mode="waterfall">
                     <core-toolbar>
-                        <core-icon-button icon="menu" on-tap="{{togglePanel}}" id="menuButton"></core-icon-button>
-                        <span flex>&lt;wald-elements&gt;</span>
-                        <core-icon-button icon="search"></core-icon-button>
+                        <paper-icon-button icon="menu" on-tap="{{togglePanel}}" id="menuButton"></paper-icon-button>
+                        <h1 flex>&lt;wald-elements&gt;</h1>
+                        <paper-icon-button icon="refresh"></paper-icon-button>
+                        <paper-icon-button icon="more-vert"></paper-icon-button>
                     </core-toolbar>
 
                     <content select="[main]"></content>
@@ -52,12 +66,16 @@
   <body fullbleed vertical layout unresolved>
 
     <local-menu>
-      <section sidebar>
-        <h1>STUFF</h1>
-      </section>
-      <section main>
-          <h1>MAIN</h1>
-      </section>
+        <section sidebar class="material-content-padding">
+            <p>menu goes here.</p>
+        </section>
+        <section main class="material-content-padding">
+            <h2>Multifield Input</h2>
+
+            <lorem-ipsum>
+                <h3>Volcan</h3>
+            </lorem-ipsum>
+        </section>
     </local-menu>
   </body>
 </html>
