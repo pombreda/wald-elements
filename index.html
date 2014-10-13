@@ -3,7 +3,7 @@
   <head>
     <title>wald-elements</title>
     <meta charset="utf-8" />
-    <meta http-equiv="refresh" content="6000" />
+    <meta http-equiv="refresh" content="120" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes" />
     <script src="bower/platform/platform.js"></script>
 
@@ -25,10 +25,10 @@
 
     </style>
 
-
     <polymer-element name="local-menu">
         <template>
             <style>
+             core-drawer-panel { min-width: 400px; }
              core-drawer-panel .material-content-padding { padding: 16px; }
              core-drawer-panel[narrow] .material-content-padding { padding: 8px; }
 
@@ -62,6 +62,46 @@
         </script>
     </polymer-element>
 
+    <polymer-element name="wald-input-with-lang" attributes="label value language" noscript>
+        <template>
+            <style>
+                wald-language-selection { margin-left: 16px; }
+            </style>
+            <div horizontal layout>
+                <paper-input label="{{label}}" floatingLabel="true" value="{{value}}"></paper-input>
+                <wald-language-selection value="{{language}}"></wald-language-selection>
+            </div>
+        </template>
+    </polymer-element>
+
+    <polymer-element name="wald-language-selection" extends="paper-input">
+        <template>
+            <style>
+             :host { width: 96px; }
+            </style>
+            <shadow></shadow>
+            <datalist id="languages">
+                <option value="en-US" />
+                <option value="en-GB" />
+                <option value="jp-JP" />
+                <option value="nl-NL" />
+            </datalist>
+        </template>
+        <script>
+         Polymer({
+             created: function () {
+                 this.label = "Language"
+                 this.floatingLabel = true;
+             },
+             ready: function () {
+                 this.super(arguments);
+                 this.$.input.parentNode.appendChild(this.$.languages);
+                 this.$.input.setAttribute('list', 'languages');
+             }
+         });
+        </script>
+    </polymer-element>
+
   </head>
   <body fullbleed vertical layout unresolved>
 
@@ -71,6 +111,10 @@
         </section>
         <section main class="material-content-padding">
             <h2>Multifield Input</h2>
+
+            <wald-input-with-lang label="Title" value="くるくるくるりん" language="jp"></wald-input-with-lang>
+            <wald-input-with-lang label="Title" value="Kuru Kuru Kururin" language="en-US"></wald-input-with-lang>
+            <wald-input-with-lang label="Title" value="" language=""></wald-input-with-lang>
 
             <lorem-ipsum>
                 <h3>Volcan</h3>
